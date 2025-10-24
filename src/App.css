@@ -1,0 +1,255 @@
+/* styles.css
+   Modern, minimal, accessible styles for your Solana wallet demo app
+   - Save as src/styles.css and import into your React root (e.g. `import './styles.css'`)
+   - Designed to work with @solana/wallet-adapter-react-ui buttons but also style your custom components
+*/
+
+:root{
+  --bg: #0f1724;             /* deep navy background */
+  --card: #0b1220;           /* slightly lighter card background */
+  --muted: #94a3b8;          /* muted text */
+  --text: #e6eef8;           /* main text color */
+  --accent: #7c3aed;         /* violet accent */
+  --accent-2: #06b6d4;       /* teal accent for success */
+  --glass: rgba(255,255,255,0.04);
+  --radius: 12px;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace;
+  --ui-gap: 24px;
+}
+
+/* App heading */
+.app-heading{
+font-size:36px;
+font-weight:800;
+text-align:center;
+color:rgb(208, 235, 34);
+margin-bottom:40px;
+text-shadow: 2px 2px 6px rgba(243, 7, 7, 0.5);
+animation:headingBounce 2s infinite alternate;
+}
+
+
+@keyframes headingBounce{
+0%{transform: translateY(0)}
+50%{transform: translateY(-10px) scale(1.05)}
+100%{transform: translateY(0)}
+}
+
+
+/* Card animation: small cartoonish bounce at bottom */
+.card::after{
+content:'';
+display:block;
+width:10px;
+height:10px;
+background:var(--accent-2);
+border-radius:50%;
+margin:10px auto 0;
+animation:cartoonBounce 1.2s infinite alternate;
+}
+
+
+@keyframes cartoonBounce{
+0%{transform: translateY(0) scale(1)}
+50%{transform: translateY(-12px) scale(1.3)}
+100%{transform: translateY(0) scale(1)}
+}
+
+/* Basic page reset */
+*{box-sizing: border-box;}
+html,body,#root{height:100%;}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg,var(--bg) 0%, #071022 100%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:32px;
+}
+
+/* App container centers content with a comfortable max width */
+.app-shell{
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Make layout stack on small screens */
+@media (max-width: 880px){.app-shell{grid-template-columns: 1fr; padding: 8px;}}
+.header{grid-column: 1 / -1;display:flex;align-items:center;justify-content:space-between;gap:var(--ui-gap);margin-bottom: 8px;}
+.header .brand{display:flex;align-items:center;gap:12px;}
+.brand .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:white;font-family:var(--mono);animation:logoPulse 2s infinite;}
+.brand h1{font-size:18px;margin:0;line-height:1;color:var(--text)}
+.brand p{margin:0;font-size:12px;color:var(--muted)}
+.controls{display:flex;gap:12px;align-items:center;}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:var(--radius);padding:18px;box-shadow: 0 6px 20px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);border: 1px solid rgba(255,255,255,0.03);transition: transform 0.3s ease, box-shadow 0.3s ease;}
+.card:hover{transform: translateY(-6px);box-shadow:0 12px 30px rgba(2,6,23,0.8);}
+.main{display:flex;flex-direction:column;gap:16px;}
+.sidebar{display:flex;flex-direction:column;gap:16px;align-self:start;}
+.form-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.input, input[type="text"], textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:var(--text);font-size:14px;outline:none;transition:box-shadow .12s ease, transform .08s ease;animation:inputFadeIn 0.6s ease forwards;opacity:0;}
+.input:focus, input[type="text"]:focus, textarea:focus{box-shadow: 0 6px 18px rgba(124,58,237,0.12);transform: translateY(-1px);border-color: rgba(124,58,237,0.35);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600;background: linear-gradient(90deg,var(--accent), #5b21b6);color:white;box-shadow: 0 8px 18px rgba(12,8,40,0.6);transition: transform 0.2s ease, box-shadow 0.2s ease;}
+.btn.secondary{background: none;color:var(--text);border:1px solid rgba(255,255,255,0.04);}
+.btn.ghost{background: transparent;border:1px dashed rgba(255,255,255,0.03);color:var(--muted);}
+.btn:hover{transform: translateY(-2px);box-shadow:0 12px 20px rgba(12,8,40,0.8);}
+.btn:active{transform:translateY(1px)}
+.wallet-adapter-button, .wallet-adapter-button *{border-radius:10px !important; font-weight:600 !important; padding:8px 12px !important;transition: transform 0.2s ease;}
+.wallet-adapter-button:hover{transform:translateY(-2px);}
+.controls .input-small{width:160px;}
+.status{margin-top:8px;padding:12px;border-radius:8px;background:rgba(6,8,12,0.4);border:1px solid rgba(255,255,255,0.02);color:var(--muted);font-size:13px;animation:fadeIn 0.8s ease forwards;opacity:0;}
+.signature{font-family:var(--mono);font-size:13px;background:rgba(10,12,18,0.4);padding:10px;border-radius:8px;word-break:break-all;color:var(--text);animation:fadeIn 1s ease forwards;opacity:0;}
+.h{font-size:14px;margin:0 0 8px 0;color:var(--text);font-weight:700}
+.sub{font-size:13px;color:var(--muted);margin:0}
+.help{font-size:12px;color:var(--muted);margin-top:6px}
+.footer{grid-column:1 / -1;margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+.row{display:flex;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:8px}
+@media (max-width:520px){.controls{flex-direction:column;align-items:stretch}.controls .input-small{width:100%}}
+@keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes inputFadeIn{0%{opacity:0;transform:translateX(-12px)}100%{opacity:1;transform:translateX(0)}}
+.badge{display:inline-block;padding:6px 8px;border-radius:999px;font-weight:700;font-size:12px}
+.badge.success{background:linear-gradient(90deg,var(--accent-2), #0ea5a4);color:#042027;animation:fadeIn 0.8s ease forwards;opacity:0;}
+.badge.warn{background:linear-gradient(90deg,#f59e0b,#f97316);color:#1b1406;animation:fadeIn 0.8s ease forwards;opacity:0;}
+.text-muted{color:var(--muted)}
+.center{display:flex;align-items:center;justify-content:center}
+
+/* Header with connect/disconnect buttons */
+.header{
+  grid-column: 1 / -1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--ui-gap);
+  margin-bottom: 8px;
+}
+.header .brand{
+  display:flex;align-items:center;gap:12px;
+}
+.brand .logo{
+  width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid;place-items:center;font-weight:700;color:white;font-family:var(--mono);
+}
+.brand h1{font-size:18px;margin:0;line-height:1;color:var(--text)}
+.brand p{margin:0;font-size:12px;color:var(--muted)}
+
+/* Top controls container */
+.controls{
+  display:flex;gap:12px;align-items:center;
+}
+
+/* Card component */
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Left column content */
+.main{
+  display:flex;flex-direction:column;gap:16px;
+}
+
+/* Right column (sidebar) */
+.sidebar{
+  display:flex;flex-direction:column;gap:16px;align-self:start;
+}
+
+/* Forms inside cards */
+.form-row{
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+}
+
+.input, input[type="text"], textarea{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:var(--glass);
+  color:var(--text);
+  font-size:14px;
+  outline:none;
+  transition:box-shadow .12s ease, transform .08s ease;
+}
+.input:focus, input[type="text"]:focus, textarea:focus{
+  box-shadow: 0 6px 18px rgba(124,58,237,0.12);
+  transform: translateY(-1px);
+  border-color: rgba(124,58,237,0.35);
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:600;
+  background: linear-gradient(90deg,var(--accent), #5b21b6);
+  color:white;box-shadow: 0 8px 18px rgba(12,8,40,0.6);
+}
+.btn.secondary{
+  background: none;color:var(--text);border:1px solid rgba(255,255,255,0.04);
+}
+.btn.ghost{
+  background: transparent;border:1px dashed rgba(255,255,255,0.03);color:var(--muted);
+}
+.btn:active{transform:translateY(1px)}
+
+/* Wallet adapter UI buttons sometimes come with their own classes. Provide a friendly override that preserves default look */
+.wallet-adapter-button, .wallet-adapter-button *{
+  border-radius:10px !important; font-weight:600 !important; padding:8px 12px !important;
+}
+
+/* Controls row styling */
+.controls .input-small{
+  width:160px;
+}
+
+/* Transaction / status box */
+.status{
+  margin-top:8px;padding:12px;border-radius:8px;background:rgba(6,8,12,0.4);border:1px solid rgba(255,255,255,0.02);
+  color:var(--muted);font-size:13px;
+}
+
+/* Signature display - monospace box */
+.signature{
+  font-family:var(--mono);font-size:13px;background:rgba(10,12,18,0.4);padding:10px;border-radius:8px;word-break:break-all;color:var(--text);
+}
+
+/* Nice headings */
+.h{font-size:14px;margin:0 0 8px 0;color:var(--text);font-weight:700}
+.sub{font-size:13px;color:var(--muted);margin:0}
+
+/* Small helper text */
+.help{font-size:12px;color:var(--muted);margin-top:6px}
+
+/* Footer */
+.footer{grid-column:1 / -1;margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+/* Utility grids */
+.row{display:flex;gap:12px;align-items:center}
+.col{display:flex;flex-direction:column;gap:8px}
+
+/* Responsive tweaks for mobile inputs */
+@media (max-width:520px){
+  .controls{flex-direction:column;align-items:stretch}
+  .controls .input-small{width:100%}
+}
+
+/* subtle hover for cards */
+.card:hover{transform: translateY(-4px);transition:transform .18s cubic-bezier(.2,.9,.2,1)}
+
+/* Success / error badges */
+.badge{display:inline-block;padding:6px 8px;border-radius:999px;font-weight:700;font-size:12px}
+.badge.success{background:linear-gradient(90deg,var(--accent-2), #0ea5a4);color:#042027}
+.badge.warn{background:linear-gradient(90deg,#f59e0b,#f97316);color:#1b1406}
+
+/* Tiny utilities */
+.text-muted{color:var(--muted)}
+.center{display:flex;align-items:center;justify-content:center}
+
+/* End of file */

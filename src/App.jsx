@@ -1,6 +1,6 @@
 // Import React and useMemo (a React hook to remember values so they don’t recalculate every time)
 import React, { useMemo } from 'react';
-
+import './App.css';
 // These two are main Solana React hooks that give access to the blockchain connection and wallet
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 
@@ -39,6 +39,7 @@ function App() {
   // Return the full UI wrapped inside the Solana wallet context providers
   return (
       // ConnectionProvider gives access to Solana network (like opening a pipe to blockchain)
+
       <ConnectionProvider endpoint={endpoint}>
 
           {/*
@@ -54,6 +55,8 @@ function App() {
               <WalletModalProvider>
 
                 {/* Simple header with Connect and Disconnect buttons */}
+                      <div className="app-heading"> Orion Dapp</div>
+
                 <div style={{ display: 'flex', justifyContent: "space-between" }}>
                   {/* Button that lets user connect a Solana wallet (e.g. Phantom) */}
                   <WalletMultiButton />
@@ -66,10 +69,12 @@ function App() {
                 {/* <ShowSolBalance /> */}
 
                 {/* Your message signing feature */}
-                <SignMessage />
+                <div className="card"><SignMessage /></div>
+                
 
                 {/* Your token sending feature */}
-                <SendTokens />
+                <div className="card"><SendTokens /></div>
+                
 
               </WalletModalProvider>
           </WalletProvider>
